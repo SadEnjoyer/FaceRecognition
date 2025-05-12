@@ -1,29 +1,24 @@
-import os
 from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
-from config import ALIGNED_DIR
+import torch
 
 class FaceDataset(Dataset):
-    def __init__(self, root_dir=ALIGNED_DIR, transform=None):
-        self.root_dir = root_dir
+    def __init__(self, samples, transform=None):
+        self.samples = samples
         self.transform = transform if transform else transforms.ToTensor()
-        self.samples = []
 
-        for class_id in os.listdir(root_dir):
-            class_folder = os.path.join(root_dir, class_id)
-            if not os.path.isdir(class_folder):
-                continue
-            for img_name in os.listdir(class_folder):
-                img_path = os.path.join(class_folder, img_name)
-                self.samples.append((img_path, int(class_id)))
+        class_names = sorted(set(label for _, label in samples))
+        self.class_to_idx = {name: idx for idx, name in enumerate(class_names)}
 
     def __len__(self):
         return len(self.samples)
 
     def __getitem__(self, idx):
-        img_path, label = self.samples[idx]
+        img_path, label_str = self.samples[idx]
         image = Image.open(img_path).convert('RGB')
         if self.transform:
             image = self.transform(image)
+
+        label = torch.tensor(self.class_to_idx[label_str], dtype=torch.long)
         return image, label

@@ -1,0 +1,27 @@
+defaults:
+  - backbone: resnet       
+  - dataset: dataset  
+  - _self_
+
+train:
+  batch_size: 64
+  epochs: 15
+  learning_rate: 1e-3
+  weight_decay: 1e-4
+  save_dir: models/weights
+
+wandb:
+  use: true
+  project: FaceRecognition
+  run_name: resnet_arcface_run
+
+debug:
+  test_single_batch: false
+
+inference:
+  model_path: C:/Users/Илья/Desktop/facerecognition/models/weights/model_epoch_6.pth
+  img_dir: C:/Users/Илья/Desktop/facerecognition/lfw/lfw_benchmark/lfw/lfw
+  pair_file: C:/Users/Илья/Desktop/facerecognition/lfw/lfw_pair.txt
+  shape_predictor_path: C:/dlib/shape_predictor_68_face_landmarks.dat
+  yolo_model_path: C:/Users/Илья/Desktop/facerecognition/models/best.pt
+

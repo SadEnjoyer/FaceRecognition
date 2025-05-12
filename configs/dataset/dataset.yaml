@@ -1,0 +1,3 @@
+root_dir: C:/Users/Илья/Desktop/facerecognition/aligned_faces
+val_ratio: 0.2
+seed: 42

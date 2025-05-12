@@ -1,0 +1,19 @@
+backbone:
+  _target_: models.resnet.ResNetBackbone
+  embedding_size: 512
+  pretrained: true
+dataset:
+  dataset:
+    root_dir: C:/Users/Илья/Desktop/facerecognition/aligned_faces
+    val_ratio: 0.1
+    test_ratio: 0.1
+    seed: 42
+train:
+  batch_size: 64
+  epochs: 15
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+wandb:
+  use: true
+  project: FaceRecognition
+  run_name: resnet_arcface_run
